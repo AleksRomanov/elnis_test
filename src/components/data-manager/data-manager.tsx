@@ -8,19 +8,7 @@ import {useFetchJsonDataQuery} from '../../store/api-reducer';
 
 function DataManager() {
     const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
-
-    useEffect(() => {
-        if (isSuccessFetchJsonData && fetchJsonData) {
-            console.log("777777777");
-        }
-    }, [fetchJsonData, isSuccessFetchJsonData]);
-
-
-    // const data = c;
-    // const data = Object.entries(JsonData)[0];
-    // const bil = data[1].contents;
-    // console.log(data);
-    // if (data) {
+    // const [pullJsonData, setPullJsonData] = useState();
     // const displayData = fetchJsonData.map(
     //     (info: any, i: any) => {
     //         return (
@@ -32,11 +20,13 @@ function DataManager() {
     //         )
     //     }
     // )
-    // }
+    useEffect(() => {
+        if (isSuccessFetchJsonData && fetchJsonData) {
+            console.log('777777777');
+            console.log(fetchJsonData);
+        }
+    }, [fetchJsonData, isSuccessFetchJsonData]);
 
-
-    // console.log(JsonData[0].contents[0].contents);
-    // console.log(JsonData[0].contents[0].contents);
     return (
         <>
             <h1>!!!!</h1>
@@ -60,6 +50,16 @@ function DataManager() {
             {/*</tbody>*/}
         </>
     )
+    // const data = Object.entries(JsonData)[0];
+    // const bil = data[1].contents;
+    // console.log(data);
+    // if (data) {
+    // }
+
+
+    // console.log(JsonData[0].contents[0].contents);
+    // console.log(JsonData[0].contents[0].contents);
+
 }
 
 export default DataManager;
