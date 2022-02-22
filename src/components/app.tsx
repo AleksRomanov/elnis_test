@@ -6,14 +6,11 @@ import FileExplorer from './FileExplorer';
 function App() {
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <h1 className="App-title">Table for SCADA</h1>
-            </header>
+            <h1 className="App-title">Table for SCADA</h1>
             <div className="App-intro">
                 <FileExplorer/>
+                <DataManager/>
             </div>
-            <DataManager/>
         </div>
     );
 }

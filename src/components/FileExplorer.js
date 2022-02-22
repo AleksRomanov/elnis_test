@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Tree from './Tree';
 
 const StyledFileExplorer = styled.div`
-  width: 800px;
+  // width: 800px;
   max-width: 100%;
   margin: 0 auto;
   display: flex;  
@@ -13,7 +13,7 @@ const TreeWrapper = styled.div`
   width: 250px;
 `;
 
-export default class FileExplorer extends Component { 
+export default class FileExplorer extends Component {
   state = {
     selectedFile: null,
   };

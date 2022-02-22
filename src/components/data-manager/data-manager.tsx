@@ -8,6 +8,7 @@ import {useFetchJsonDataQuery} from '../../store/api-reducer';
 
 function DataManager() {
     const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
+    const displayData = fetchJsonData;
     // const [pullJsonData, setPullJsonData] = useState();
     // const displayData = fetchJsonData.map(
     //     (info: any, i: any) => {
@@ -26,11 +27,15 @@ function DataManager() {
             console.log(fetchJsonData);
         }
     }, [fetchJsonData, isSuccessFetchJsonData]);
+    console.log('888888888888');
+    console.log(displayData);
 
     return (
         <>
             <h1>!!!!</h1>
+
             {/*{displayData}*/}
+
             {/*<thead>*/}
             {/*<tr>*/}
             {/*    <td>{DisplayData}</td>*/}
