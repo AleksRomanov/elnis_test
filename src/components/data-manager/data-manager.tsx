@@ -11,7 +11,7 @@ function DataManager() {
 
     useEffect(() => {
         if (isSuccessFetchJsonData && fetchJsonData) {
-            console.log(fetchJsonData);
+            console.log("777777777");
         }
     }, [fetchJsonData, isSuccessFetchJsonData]);
 

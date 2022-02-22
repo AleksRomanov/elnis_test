@@ -7,10 +7,9 @@ export const apiReducer = createApi({
     endpoints: (builder) => ({
         fetchJsonData: builder.query<undefined, void>({
             query: () => ({
-                url: './example.json',
+                url: 'example.json',
                 method: 'get',
             }),
-            // transformResponse: (response: OfferType[]) => adaptDataFromServer(response),
         }),
     }),
 });
