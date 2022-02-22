@@ -1,41 +1,19 @@
-import * as React from 'react';
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import TreeItem from '@mui/lab/TreeItem';
-import JsonData from '../../example.json';
+import React from 'react';
+// import TreeView from '@mui/lab/TreeView';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// import TreeItem from '@mui/lab/TreeItem';
 import {useEffect} from 'react';
 import {useFetchJsonDataQuery} from '../../store/api-reducer';
 
-// type dataType = {
-//     data: any,
-//     bil: any
-//     JsonData: any
-// }
-
-
-// async function readFile(path) {
-//     return new Promise((resolve, reject) => {
-//         fs.readFile(path, 'utf8', function (err, data) {
-//             if (err) {
-//                 reject(err);
-//             }
-//             resolve(data);
-//         });
-//     });
-// }
-//
-//     await readFile("path/to/file");
-
-
 function DataManager() {
-    const {data: JsonData}: any = useFetchJsonDataQuery(undefined);
+    const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
 
     useEffect(() => {
-        if (JsonData) {
-            console.log(data);
+        if (isSuccessFetchJsonData && fetchJsonData) {
+            console.log(fetchJsonData);
         }
-    }, [JsonData, data]);
+    }, [fetchJsonData, isSuccessFetchJsonData]);
 
 
     // const data = c;
@@ -43,19 +21,17 @@ function DataManager() {
     // const bil = data[1].contents;
     // console.log(data);
     // if (data) {
-    const DisplayData = data.map(
-        (info: any, i: any) => {
-            return (
-                <table>
-                    <tr key={i}>
-                        <th>{info.type}</th>
-                        <th>{info.name}</th>
-                        <th>{info.size}</th>
-                    </tr>
-                </table>
-            )
-        }
-    )
+    // const displayData = fetchJsonData.map(
+    //     (info: any, i: any) => {
+    //         return (
+    //             <tr key={i}>
+    //                 <th>{info.type}</th>
+    //                 <th>{info.name}</th>
+    //                 <th>{info.size}</th>
+    //             </tr>
+    //         )
+    //     }
+    // )
     // }
 
 
@@ -64,7 +40,7 @@ function DataManager() {
     return (
         <>
             <h1>!!!!</h1>
-
+            {/*{displayData}*/}
             {/*<thead>*/}
             {/*<tr>*/}
             {/*    <td>{DisplayData}</td>*/}
