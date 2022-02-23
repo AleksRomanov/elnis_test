@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import values from 'lodash/values';
 import PropTypes from 'prop-types';
 import TreeNode from './TreeNode';
+import {nanoid} from "nanoid";
 
 const data = {
     '/root': {
@@ -49,7 +50,12 @@ function Tree({onSelect}) {
     //     nodes: data,
     // };
 
+    useEffect(() => {
+        console.log('use')
+    }, [nodes]);
+
     const getRootNodes = () => {
+        console.log('root')
         return values(nodes).filter(node => node.isRoot === true);
     };
     // getRootNodes = () => {
@@ -72,8 +78,13 @@ function Tree({onSelect}) {
     // }
 
     const onToggle = (node) => {
+        console.log('move-huy')
         nodes[node.path].isOpen = !node.isOpen;
-        return setNodes(nodes);
+        // setNodes(nodes);
+        return setNodes({
+                ...nodes,
+            }
+        );
     }
 
     // onToggle = (node) => {
@@ -91,7 +102,8 @@ function Tree({onSelect}) {
     //     onSelect(node);
     // }
 
-    const rootNodes = getRootNodes();
+    // const rootNodes = getRootNodes();
+    console.log('render-huy')
     return (
         <div>
             {getRootNodes().map(node => (
@@ -100,7 +112,7 @@ function Tree({onSelect}) {
                     getChildNodes={getChildNodes}
                     onToggle={onToggle}
                     onNodeSelect={onNodeSelect}
-                    key={new Date()}
+                    key={nanoid()}
                 />
             ))}
         </div>

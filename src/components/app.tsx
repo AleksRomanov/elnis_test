@@ -9,7 +9,6 @@ function App() {
             <h1 className="App-title">Table for SCADA</h1>
             <div className="App-intro">
                 <FileExplorer/>
-                <DataManager/>
             </div>
         </div>
     );
