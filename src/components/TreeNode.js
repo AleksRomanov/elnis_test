@@ -3,6 +3,7 @@ import { FaFile, FaFolder, FaFolderOpen, FaChevronDown, FaChevronRight } from 'r
 import styled from 'styled-components';
 import last from 'lodash/last';
 import PropTypes from 'prop-types';
+import {nanoid} from "nanoid";
 
 const getPaddingLeft = (level, type) => {
   let paddingLeft = level * 20;
@@ -31,20 +32,20 @@ const getNodeLabel = (node) => last(node.path.split('/'));
 
 const TreeNode = (props) => {
   const { node, getChildNodes, level, onToggle, onNodeSelect } = props;
-
+  console.log('render')
   return (
-    <React.Fragment>
+    <React.Fragment key={new Date()}>
       <StyledTreeNode level={level} type={node.type}>
         <NodeIcon onClick={() => onToggle(node)}>
           { node.type === 'folder' && (node.isOpen ? <FaChevronDown /> : <FaChevronRight />) }
         </NodeIcon>
-        
+
         <NodeIcon marginRight={10}>
           { node.type === 'file' && <FaFile /> }
           { node.type === 'folder' && node.isOpen === true && <FaFolderOpen /> }
           { node.type === 'folder' && !node.isOpen && <FaFolder /> }
         </NodeIcon>
-        
+
 
         <span role="button" onClick={() => onNodeSelect(node)}>
           { getNodeLabel(node) }
@@ -52,10 +53,11 @@ const TreeNode = (props) => {
       </StyledTreeNode>
 
       { node.isOpen && getChildNodes(node).map(childNode => (
-        <TreeNode 
+        <TreeNode
           {...props}
-          node={childNode}          
+          node={childNode}
           level={level + 1}
+          key={nanoid()}
         />
       ))}
     </React.Fragment>

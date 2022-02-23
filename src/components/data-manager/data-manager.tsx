@@ -3,12 +3,12 @@ import React from 'react';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 // import TreeItem from '@mui/lab/TreeItem';
-import {useEffect} from 'react';
-import {useFetchJsonDataQuery} from '../../store/api-reducer';
+// import {useEffect} from 'react';
+// import {useFetchJsonDataQuery} from '../../store/api-reducer';
 
 function DataManager() {
-    const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
-    const displayData = fetchJsonData;
+    // const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
+    // const displayData = fetchJsonData;
     // const [pullJsonData, setPullJsonData] = useState();
     // const displayData = fetchJsonData.map(
     //     (info: any, i: any) => {
@@ -21,14 +21,14 @@ function DataManager() {
     //         )
     //     }
     // )
-    useEffect(() => {
-        if (isSuccessFetchJsonData && fetchJsonData) {
-            console.log('777777777');
-            console.log(fetchJsonData);
-        }
-    }, [fetchJsonData, isSuccessFetchJsonData]);
-    console.log('888888888888');
-    console.log(displayData);
+    // useEffect(() => {
+    //     if (isSuccessFetchJsonData && fetchJsonData) {
+    //         console.log('777777777');
+    //         console.log(fetchJsonData);
+    //     }
+    // }, [fetchJsonData, isSuccessFetchJsonData]);
+    // console.log('888888888888');
+    // console.log(displayData);
 
     return (
         <>

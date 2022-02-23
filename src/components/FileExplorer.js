@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import Tree from './Tree';
 
@@ -13,25 +13,30 @@ const TreeWrapper = styled.div`
   width: 250px;
 `;
 
-export default class FileExplorer extends Component {
-  state = {
-    selectedFile: null,
-  };
+function FileExplorer() {
+    const [selectedFile, setSelectedFile] = useState(null);
+    // state = {
+    //     selectedFile: null,
+    // };
 
-  onSelect = (file) => this.setState({ selectedFile: file });
+    const onSelect = (file) => {
+        console.log('213223414124')
+        setSelectedFile({selectedFile: file})
+    };
+    // onSelect = (file) => this.setState({selectedFile: file});
 
-  render() {
-    const { selectedFile } = this.state;
+    // const {selectedFile} = this.state;
 
     return (
-      <StyledFileExplorer>
-        <TreeWrapper>
-          <Tree onSelect={this.onSelect} />
-        </TreeWrapper>
-        <div>
-          { selectedFile && selectedFile.type === 'file' && selectedFile.content }
-        </div>
-      </StyledFileExplorer>
+        <StyledFileExplorer>
+            <TreeWrapper>
+                <Tree onSelect={onSelect}/>
+            </TreeWrapper>
+            <div>
+                {selectedFile && selectedFile.type === 'file' && selectedFile.content}
+            </div>
+        </StyledFileExplorer>
     )
-  }
 }
+
+export default FileExplorer;
