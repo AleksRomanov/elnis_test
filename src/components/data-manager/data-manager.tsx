@@ -56,6 +56,7 @@ function DataManager() {
         </>
     )
     // const data = Object.entries(JsonData)[0];
+    // const data = Object.entries(JsonData)[0];
     // const bil = data[1].contents;
     // console.log(data);
     // if (data) {

@@ -28,11 +28,11 @@ const NodeIcon = styled.div`
   margin-right: ${props => props.marginRight ? props.marginRight : 5}px;
 `;
 
-const getNodeLabel = (node) => last(node.path.split('/'));
+const getNodeLabel = (node) => last(node.name.split('/'));
 
 const TreeNode = (props) => {
     const {node, getChildNodes, level, onToggle, onNodeSelect} = props;
-    console.log('render');
+
     return (
         <React.Fragment key={nanoid()}>
             <StyledTreeNode level={level} type={node.type}>

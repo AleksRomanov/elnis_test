@@ -1,4 +1,4 @@
-import DataManager from './data-manager/data-manager';
+// import DataManager from './data-manager/data-manager';
 // import logo from './logo.svg';
 import './App.css';
 import FileExplorer from './FileExplorer';

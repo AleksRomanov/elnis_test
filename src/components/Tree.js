@@ -1,61 +1,113 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import values from 'lodash/values';
 import PropTypes from 'prop-types';
 import TreeNode from './TreeNode';
 import {nanoid} from "nanoid";
+// import JsonData from '.././example.json';
+// import {apiReducer} from './../store/api-reducer';
+// import {useFetchJsonDataQuery} from './../store/api-reducer';
+
+// const data = {
+//     '/root': {
+//         path: '/root',
+//         type: 'folder',
+//         isRoot: true,
+//         children: ['/root/david', '/root/jslancer'],
+//     },
+//     '/root/david': {
+//         path: '/root/david',
+//         type: 'folder',
+//         children: ['/root/david/readme.md'],
+//     },
+//     '/root/david/readme.md': {
+//         path: '/root/david/readme.md',
+//         type: 'file',
+//         children: 'Thanks for reading me me. But there is nothing here.'
+//     },
+//     '/root/jslancer': {
+//         path: '/root/jslancer',
+//         type: 'folder',
+//         children: ['/root/jslancer/projects', '/root/jslancer/vblogs'],
+//     },
+//     '/root/jslancer/projects': {
+//         path: '/root/jslancer/projects',
+//         type: 'folder',
+//         children: ['/root/jslancer/projects/treeview'],
+//     },
+//     '/root/jslancer/projects/treeview': {
+//         path: '/root/jslancer/projects/treeview',
+//         type: 'folder',
+//         children: [],
+//     },
+//     '/root/jslancer/vblogs': {
+//         path: '/root/jslancer/vblogs',
+//         type: 'folder',
+//         children: [],
+//     },   
+// };
 
 const data = {
-    '/root': {
-        path: '/root',
+    '/home': {
+        name: '/home',
         type: 'folder',
         isRoot: true,
-        children: ['/root/david', '/root/jslancer'],
+        children: ['/home/david', '/home/jslancer'],
     },
-    '/root/david': {
-        path: '/root/david',
+    '/home/david': {
+        name: '/home/david',
         type: 'folder',
-        children: ['/root/david/readme.md'],
+        children: ['/home/david/readme.md'],
     },
-    '/root/david/readme.md': {
-        path: '/root/david/readme.md',
+    '/home/david/readme.md': {
+        name: '/home/david/readme.md',
         type: 'file',
-        content: 'Thanks for reading me me. But there is nothing here.'
+        children: 'Thanks for reading me me. But there is nothing here.'
     },
-    '/root/jslancer': {
-        path: '/root/jslancer',
+    '/home/jslancer': {
+        name: '/home/jslancer',
         type: 'folder',
-        children: ['/root/jslancer/projects', '/root/jslancer/vblogs'],
+        children: ['/home/jslancer/projects', '/home/jslancer/vblogs'],
     },
-    '/root/jslancer/projects': {
-        path: '/root/jslancer/projects',
+    '/home/jslancer/projects': {
+        name: '/home/jslancer/projects',
         type: 'folder',
-        children: ['/root/jslancer/projects/treeview'],
+        children: ['/home/jslancer/projects/treeview'],
     },
-    '/root/jslancer/projects/treeview': {
-        path: '/root/jslancer/projects/treeview',
-        type: 'folder',
-        children: [],
-    },
-    '/root/jslancer/vblogs': {
-        path: '/root/jslancer/vblogs',
+    '/home/jslancer/projects/treeview': {
+        name: '/home/jslancer/projects/treeview',
         type: 'folder',
         children: [],
     },
-}
+    '/home/jslancer/vblogs': {
+        name: '/home/jslancer/vblogs',
+        type: 'folder',
+        children: [],
+    },   
+};
+    // const data = [JsonData[0].contents[0]];
+    // const data = useFetchJsonDataQuery();
+    // const data = Object.entries(JsonData)[0];
+    // const data = JsonData[0].contents[0].contents;
+    // const data = JsonData[0].contents[0];
+
 
 function Tree({onSelect}) {
     // export default class Tree extends Component {
+    // console.log(data);
+ 
+    // const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery();
     const [nodes, setNodes] = useState(data);
+
+
     // state = {
     //     nodes: data,
     // };
 
-    useEffect(() => {
-        console.log('use')
-    }, [nodes]);
+    // useEffect(() => {
+    //     console.log('use')
+    // }, [nodes]);
 
     const getRootNodes = () => {
-        console.log('root')
         return values(nodes).filter(node => node.isRoot === true);
     };
     // getRootNodes = () => {
@@ -67,7 +119,7 @@ function Tree({onSelect}) {
         if (!node.children) {
             return [];
         } else {
-            return node.children.map(path => nodes[path]);
+            return node.children.map(name => nodes[name]);
         }
     }
 
@@ -78,8 +130,7 @@ function Tree({onSelect}) {
     // }
 
     const onToggle = (node) => {
-        console.log('move-huy')
-        nodes[node.path].isOpen = !node.isOpen;
+        nodes[node.name].isOpen = !node.isOpen;
         // setNodes(nodes);
         return setNodes({
                 ...nodes,
@@ -103,7 +154,6 @@ function Tree({onSelect}) {
     // }
 
     // const rootNodes = getRootNodes();
-    console.log('render-huy')
     return (
         <div>
             {getRootNodes().map(node => (
@@ -121,6 +171,6 @@ function Tree({onSelect}) {
 
 export default Tree;
 
-// Tree.propTypes = {
-//     onSelect: PropTypes.func.isRequired,
-// };
+Tree.propTypes = {
+    onSelect: PropTypes.func.isRequired,
+};
