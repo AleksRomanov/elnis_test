@@ -20,6 +20,8 @@
 
 .App-intro {
   font-size: large;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .App-intro div {

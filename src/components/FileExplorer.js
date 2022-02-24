@@ -5,7 +5,7 @@ import Tree from './Tree';
 const StyledFileExplorer = styled.div`
   // width: 800px;
   max-width: 100%;
-  margin: 0 auto;
+//   margin: 0 auto;
   display: flex;  
 `;
 

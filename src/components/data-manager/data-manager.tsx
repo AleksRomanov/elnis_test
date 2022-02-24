@@ -1,71 +1,82 @@
-import React from 'react';
-// import TreeView from '@mui/lab/TreeView';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-// import TreeItem from '@mui/lab/TreeItem';
+import React  from 'react';
 // import {useEffect} from 'react';
 // import {useFetchJsonDataQuery} from '../../store/api-reducer';
+// import JsonData from '../../example.json';
+
 
 function DataManager() {
-    // const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
-    // const displayData = fetchJsonData;
-    // const [pullJsonData, setPullJsonData] = useState();
-    // const displayData = fetchJsonData.map(
+    // const [pullJsonData, setPullJsonData] = useState(undefined);
+    // const displayData = Object.keys(JsonData).map(
     //     (info: any, i: any) => {
-    //         return (
-    //             <tr key={i}>
-    //                 <th>{info.type}</th>
-    //                 <th>{info.name}</th>
-    //                 <th>{info.size}</th>
+    //         return 
+    //         <>
+    //             <tr>
+    //                 <td>{info.type}</td>
+    //                 <td>{info.name}</td>
     //             </tr>
-    //         )
+    //         </>
     //     }
     // )
-    // useEffect(() => {
-    //     if (isSuccessFetchJsonData && fetchJsonData) {
-    //         console.log('777777777');
-    //         console.log(fetchJsonData);
-    //     }
-    // }, [fetchJsonData, isSuccessFetchJsonData]);
-    // console.log('888888888888');
-    // console.log(displayData);
-
+ 
     return (
         <>
-            <h1>!!!!</h1>
-
-            {/*{displayData}*/}
-
-            {/*<thead>*/}
-            {/*<tr>*/}
-            {/*    <td>{DisplayData}</td>*/}
-            {/*    <td>File name</td>*/}
-            {/*    <td>size</td>*/}
-            {/*</tr>*/}
-            {/*</thead>*/}
-            {/*<tbody>*/}
-            {/*/!*{DisplayData}*!/*/}
-            {/*<TreeView aria-label="file system navigator" defaultCollapseIcon={<ExpandMoreIcon/>} defaultExpandIcon={<ChevronRightIcon/>} sx={{border: '1px solid red', height: 600, flexGrow: 1, width: 200, overflowY: 'auto'}}>*/}
-            {/*    <TreeItem nodeId="1" label={DisplayData}>*/}
-            {/*        <TreeItem nodeId="2" label={DisplayData}>*/}
-            {/*            <TreeItem nodeId="3" label={DisplayData}/>*/}
-            {/*        </TreeItem>*/}
-            {/*    </TreeItem>*/}
-            {/*</TreeView>*/}
-            {/*</tbody>*/}
+            <table className = "table table-striped">
+                <thead>
+                    <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 
+                    
+                    {/* {displayData} */}
+                    
+                </tbody>
+            </table>
+             
         </>
     )
-    // const data = Object.entries(JsonData)[0];
-    // const data = Object.entries(JsonData)[0];
-    // const bil = data[1].contents;
-    // console.log(data);
-    // if (data) {
-    // }
+ }
+ 
+ export default DataManager;
+
+// function DataManager() {
+//     const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
+//     // const data = Object.assign({}, JsonData[0]);
+//     // console.log(data);
+
+//     // const displayData = Object.assign({}, JsonData[0]);
+
+//     useEffect(() => {
+//         if (isSuccessFetchJsonData && fetchJsonData) {
+//             console.log('777777777');
+//             // console.log(fetchJsonData);
+//         }
+//     }, [fetchJsonData, isSuccessFetchJsonData]);
+    
+//     console.log('888888888888');
+//     // console.log(displayData);
+
+//     return (
+//         <>
+//           <table>
+//               <td></td>
+//               <td></td>
+//           </table>
+//         </>
+//     )
+//     // const data = Object.entries(JsonData)[0];
+//     // const data = Object.entries(JsonData)[0];
+//     // const bil = data[1].contents;
+//     // console.log(data);
+//     // if (data) {
+//     // }
 
 
-    // console.log(JsonData[0].contents[0].contents);
-    // console.log(JsonData[0].contents[0].contents);
+//     // console.log(JsonData[0].contents[0].contents);
+//     // console.log(JsonData[0].contents[0].contents);
 
-}
+// }
 
-export default DataManager;
+// export default DataManager;

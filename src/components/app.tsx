@@ -3,10 +3,10 @@
 import './App.css';
 import FileExplorer from './FileExplorer';
 
-function App() {
+function App(): JSX.Element {
     return (
         <div className="App">
-            <h1 className="App-title">Table for SCADA</h1>
+            {/* <h1 className="App-title">Table for SCADA</h1> */}
             <div className="App-intro">
                 <FileExplorer/>
             </div>

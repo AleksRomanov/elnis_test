@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import values from 'lodash/values';
-import PropTypes from 'prop-types';
+import PropTypes  from 'prop-types';
 import TreeNode from './TreeNode';
 import {nanoid} from "nanoid";
 // import JsonData from '.././example.json';
+// import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query';
+// import { useFetchJsonDataQuery } from '../store/api-reducer';
 // import {apiReducer} from './../store/api-reducer';
-// import {useFetchJsonDataQuery} from './../store/api-reducer';
+import {useFetchJsonDataQuery} from './../store/api-reducer';
 
 // const data = {
 //     '/root': {
@@ -46,112 +48,101 @@ import {nanoid} from "nanoid";
 //     },   
 // };
 
-const data = {
-    '/home': {
-        name: '/home',
-        type: 'folder',
-        isRoot: true,
-        children: ['/home/david', '/home/jslancer'],
-    },
-    '/home/david': {
-        name: '/home/david',
-        type: 'folder',
-        children: ['/home/david/readme.md'],
-    },
-    '/home/david/readme.md': {
-        name: '/home/david/readme.md',
-        type: 'file',
-        children: 'Thanks for reading me me. But there is nothing here.'
-    },
-    '/home/jslancer': {
-        name: '/home/jslancer',
-        type: 'folder',
-        children: ['/home/jslancer/projects', '/home/jslancer/vblogs'],
-    },
-    '/home/jslancer/projects': {
-        name: '/home/jslancer/projects',
-        type: 'folder',
-        children: ['/home/jslancer/projects/treeview'],
-    },
-    '/home/jslancer/projects/treeview': {
-        name: '/home/jslancer/projects/treeview',
-        type: 'folder',
-        children: [],
-    },
-    '/home/jslancer/vblogs': {
-        name: '/home/jslancer/vblogs',
-        type: 'folder',
-        children: [],
-    },   
-};
+// const data = {
+//     '/home': {
+//         name: '/home',
+//         type: 'folder',
+//         isRoot: true,
+//         contents: ['/home/david', '/home/jslancer'],
+//     },
+//     '/home/david': {
+//         name: '/home/david',
+//         type: 'folder',
+//         contents: ['/home/david/readme.md'],
+//     },
+//     '/home/david/readme.md': {
+//         name: '/home/david/readme.md',
+//         type: 'file',
+//         contents: 'Thanks for reading me me. But there is nothing here.'
+//     },
+//     '/home/jslancer': {
+//         name: '/home/jslancer',
+//         type: 'folder',
+//         contents: ['/home/jslancer/projects', '/home/jslancer/vblogs'],
+//     },
+//     '/home/jslancer/projects': {
+//         name: '/home/jslancer/projects',
+//         type: 'folder',
+//         contents: ['/home/jslancer/projects/treeview'],
+//     },
+//     '/home/jslancer/projects/treeview': {
+//         name: '/home/jslancer/projects/treeview',
+//         type: 'folder',
+//         contents: [],
+//     },
+//     '/home/jslancer/vblogs': {
+//         name: '/home/jslancer/vblogs',
+//         type: 'folder',
+//         contents: [],
+//     },   
+// };
+
+// const data = Object.assign({}, JsonData[0]);
+// console.log(data);
+
+
+// const data = {};
+// const dataCopy = Object.assign({}, data)
+// console.log(data);
+// console.log(dataCopy);
+
     // const data = [JsonData[0].contents[0]];
     // const data = useFetchJsonDataQuery();
-    // const data = Object.entries(JsonData)[0];
-    // const data = JsonData[0].contents[0].contents;
+
+    // const data = JsonData[0].contents[0];
     // const data = JsonData[0].contents[0];
 
 
 function Tree({onSelect}) {
-    // export default class Tree extends Component {
-    // console.log(data);
- 
-    // const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery();
-    const [nodes, setNodes] = useState(data);
+    // const dispatch = useAppDispatch();
+    const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
+    const [jsonData, setJsonData] = useState(fetchJsonData);
 
+    useEffect(() => {
+        if (isSuccessFetchJsonData && fetchJsonData && jsonData) {
+            setJsonData({...fetchJsonData})
+        }
+    }, [fetchJsonData, isSuccessFetchJsonData, jsonData]);
 
-    // state = {
-    //     nodes: data,
-    // };
+    console.log('777777777');
+    console.log(fetchJsonData);
 
-    // useEffect(() => {
-    //     console.log('use')
-    // }, [nodes]);
+    const [nodes, setNodes] = useState(fetchJsonData);
 
     const getRootNodes = () => {
         return values(nodes).filter(node => node.isRoot === true);
     };
-    // getRootNodes = () => {
-    //     const {nodes} = this.state;
-    //     return values(nodes).filter(node => node.isRoot === true);
-    // }
 
     const getChildNodes = (node) => {
-        if (!node.children) {
+        if (!node.contents) {
             return [];
         } else {
-            return node.children.map(name => nodes[name]);
+            return node.contents.map(name => nodes[name]);
         }
     }
-
-    // getChildNodes = (node) => {
-    //     // const {nodes} = this.state;
-    //     if (!node.children) return [];
-    //     return node.children.map(path => nodes[path]);
-    // }
 
     const onToggle = (node) => {
         nodes[node.name].isOpen = !node.isOpen;
         // setNodes(nodes);
+    // console.log(setNodes);
         return setNodes({
                 ...nodes,
             }
         );
     }
-
-    // onToggle = (node) => {
-    //     const {nodes} = this.state;
-    //     nodes[node.path].isOpen = !node.isOpen;
-    //     this.setState({nodes});
-    // }
-
     const onNodeSelect = (node) => {
-        onSelect(node);
+        return onSelect(nodes);
     }
-
-    // onNodeSelect = node => {
-    //     const {onSelect} = this.props;
-    //     onSelect(node);
-    // }
 
     // const rootNodes = getRootNodes();
     return (
