@@ -7,7 +7,7 @@ import {nanoid} from "nanoid";
 // import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query';
 // import { useFetchJsonDataQuery } from '../store/api-reducer';
 // import {apiReducer} from './../store/api-reducer';
-import {useFetchJsonDataQuery} from './../store/api-reducer';
+import {useGettedJsonDataQuery} from './../store/api-reducer';
 
 // const data = {
 //     '/root': {
@@ -102,52 +102,52 @@ import {useFetchJsonDataQuery} from './../store/api-reducer';
     // const data = JsonData[0].contents[0];
     // const data = JsonData[0].contents[0];
 
-
 function Tree({onSelect}) {
     // const dispatch = useAppDispatch();
-    const {data: fetchJsonData, isSuccess: isSuccessFetchJsonData} = useFetchJsonDataQuery(undefined);
-    const [jsonData, setJsonData] = useState(fetchJsonData);
+    // const data = [];
+    const {data: gettedJsonData, isSuccess: isSuccessGettedJsonData} = useGettedJsonDataQuery(undefined);
+    const [jsonData, setJsonData] = useState(null);
 
     useEffect(() => {
-        if (isSuccessFetchJsonData && fetchJsonData && jsonData) {
-            setJsonData({...fetchJsonData})
+        if (isSuccessGettedJsonData && gettedJsonData) {
+            setJsonData(gettedJsonData)
         }
-    }, [fetchJsonData, isSuccessFetchJsonData, jsonData]);
+    }, [gettedJsonData, isSuccessGettedJsonData]);
 
-    console.log('777777777');
-    console.log(fetchJsonData);
+    // console.log('777777777');
+    // console.log(gettedJsonData);
 
-    const [nodes, setNodes] = useState(fetchJsonData);
+    // const [nodes, setNodes] = useState(getJsonData);
 
     const getRootNodes = () => {
-        return values(nodes).filter(node => node.isRoot === true);
+        return values(jsonData).filter(node => node.isRoot === true);
     };
 
     const getChildNodes = (node) => {
         if (!node.contents) {
             return [];
         } else {
-            return node.contents.map(name => nodes[name]);
+            return node.contents.map(name => jsonData[name]);
         }
     }
 
     const onToggle = (node) => {
-        nodes[node.name].isOpen = !node.isOpen;
+        jsonData[node.name].isOpen = !node.isOpen;
         // setNodes(nodes);
     // console.log(setNodes);
-        return setNodes({
-                ...nodes,
+        return setJsonData({
+                ...jsonData,
             }
         );
     }
     const onNodeSelect = (node) => {
-        return onSelect(nodes);
+        return onSelect(jsonData);
     }
 
-    // const rootNodes = getRootNodes();
+    const rootNodes = getRootNodes();
     return (
         <div>
-            {getRootNodes().map(node => (
+            {rootNodes.map(node => (
                 <TreeNode
                     node={node}
                     getChildNodes={getChildNodes}

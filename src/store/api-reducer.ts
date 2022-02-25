@@ -5,7 +5,7 @@ export const apiReducer = createApi({
     reducerPath: 'api',
     baseQuery: createAPI(),
     endpoints: (builder) => ({
-        fetchJsonData: builder.query<undefined, void>({
+        gettedJsonData: builder.query<undefined, void>({
             query: () => ({
                 url: 'example.json',
                 method: 'get',
@@ -14,4 +14,4 @@ export const apiReducer = createApi({
     }),
 });
 
-export const {useFetchJsonDataQuery} = apiReducer;
+export const {useGettedJsonDataQuery} = apiReducer;
