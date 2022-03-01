@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import values from 'lodash/values';
-import PropTypes  from 'prop-types';
+import PropTypes, {any} from 'prop-types';
 import TreeNode from './TreeNode';
 import {nanoid} from "nanoid";
 // import JsonData from '.././example.json';
 // import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query';
 // import { useFetchJsonDataQuery } from '../store/api-reducer';
 // import {apiReducer} from './../store/api-reducer';
-import {useGettedJsonDataQuery} from './../store/api-reducer';
+import {useGettedJsonDataQuery} from '../store/api-reducer';
 
 // const data = {
 //     '/root': {
@@ -45,7 +45,7 @@ import {useGettedJsonDataQuery} from './../store/api-reducer';
 //         path: '/root/jslancer/vblogs',
 //         type: 'folder',
 //         children: [],
-//     },   
+//     },
 // };
 
 // const data = {
@@ -84,7 +84,7 @@ import {useGettedJsonDataQuery} from './../store/api-reducer';
 //         name: '/home/jslancer/vblogs',
 //         type: 'folder',
 //         contents: [],
-//     },   
+//     },
 // };
 
 // const data = Object.assign({}, JsonData[0]);
@@ -96,17 +96,15 @@ import {useGettedJsonDataQuery} from './../store/api-reducer';
 // console.log(data);
 // console.log(dataCopy);
 
-    // const data = [JsonData[0].contents[0]];
-    // const data = useFetchJsonDataQuery();
+// const data = [JsonData[0].contents[0]];
+// const data = useFetchJsonDataQuery();
 
-    // const data = JsonData[0].contents[0];
-    // const data = JsonData[0].contents[0];
+// const data = JsonData[0].contents[0];
+// const data = JsonData[0].contents[0];
 
 function Tree({onSelect}) {
-    // const dispatch = useAppDispatch();
-    // const data = [];
-    const {data: gettedJsonData, isSuccess: isSuccessGettedJsonData} = useGettedJsonDataQuery(undefined);
-    const [jsonData, setJsonData] = useState(null);
+    const {data: gettedJsonData, isSuccess: isSuccessGettedJsonData} = useGettedJsonDataQuery();
+    const [jsonData, setJsonData] = useState([{}]);
 
     useEffect(() => {
         if (isSuccessGettedJsonData && gettedJsonData) {
@@ -114,54 +112,69 @@ function Tree({onSelect}) {
         }
     }, [gettedJsonData, isSuccessGettedJsonData]);
 
-    // console.log('777777777');
-    // console.log(gettedJsonData);
+    if (!isSuccessGettedJsonData) {
+        return (
+            <p>Loading ...</p>
+        );
+    }
+    // getRootNodes = () => {
+    //     const { nodes } = this.state;
+    //     return values(nodes).filter(node => node.isRoot === true);
+    // }
 
-    // const [nodes, setNodes] = useState(getJsonData);
-
-    const getRootNodes = () => {
-        return values(jsonData).filter(node => node.isRoot === true);
+    const node = (jsonData) => {
+        return values(jsonData[node]).filter(name => name.isRoot === true);
     };
+    // console.log(node);
+
+    // console.log(jsonData[0]);
+    // console.log(getChildNodes);
 
     const getChildNodes = (node) => {
         if (!node.contents) {
-            return [];
-        } else {
-            return node.contents.map(name => jsonData[name]);
+            return jsonData[0];
         }
     }
+    // console.log("1111111");
+    // console.log(getChildNodes());
+
+    // const getChildNodes = (node) => {
+    //     if (!node.contents) {
+    //         return [];
+    //     } else {
+    //         return node.contents.map(name => jsonData[name]);
+    //     }
+    // }
 
     const onToggle = (node) => {
         jsonData[node.name].isOpen = !node.isOpen;
         // setNodes(nodes);
-    // console.log(setNodes);
-        return setJsonData({
-                ...jsonData,
-            }
-        );
+        setJsonData(jsonData);
     }
-    const onNodeSelect = (node) => {
-        return onSelect(jsonData);
+    const onNodeSelect = (jsonData) => {
+        onSelect(jsonData);
     }
 
-    const rootNodes = getRootNodes();
+    // console.log(gettedJsonData);
+    // const [nodes, setNodes] = useState(getJsonData);
+    // const getRootNodes = () => {
+    //     return values(jsonData).filter(node => node.isRoot === true);
+    // };
+    // const rootNodes = getRootNodes();
+
     return (
-        <div>
-            {rootNodes.map(node => (
-                <TreeNode
-                    node={node}
-                    getChildNodes={getChildNodes}
-                    onToggle={onToggle}
-                    onNodeSelect={onNodeSelect}
-                    key={nanoid()}
-                />
-            ))}
-        </div>
+        <TreeNode
+            node={jsonData[0]}
+            getChildNodes={getChildNodes}
+            onToggle={onToggle}
+            onNodeSelect={onNodeSelect}
+            key={nanoid()}
+        />
     )
 }
 
 export default Tree;
 
-Tree.propTypes = {
-    onSelect: PropTypes.func.isRequired,
-};
+// Tree.propTypes = {
+//     onSelect: PropTypes.func,
+// };

@@ -11,6 +11,12 @@ export const apiReducer = createApi({
                 method: 'get',
             }),
         }),
+        // fetchedData: builder.query<undefined, string>({
+        //     query: (id) => ({
+        //         url: 'example.json',
+        //         method: 'get',
+        //     }),
+        // }),
     }),
 });
 

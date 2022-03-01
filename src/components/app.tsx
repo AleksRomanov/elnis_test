@@ -3,7 +3,7 @@
 import './App.css';
 import FileExplorer from './FileExplorer';
 
-function App(): JSX.Element {
+function App() {
     return (
         <div className="App">
             {/* <h1 className="App-title">Table for SCADA</h1> */}

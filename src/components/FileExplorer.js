@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 import Tree from './Tree';
 
@@ -28,7 +28,7 @@ function FileExplorer() {
                 <Tree onSelect={onSelect}/>
             </TreeWrapper>
             <div>
-                {selectedFile && selectedFile.type === 'file' && selectedFile.content}
+                {selectedFile && selectedFile.type === 'file' && selectedFile.contents}
             </div>
         </StyledFileExplorer>
     )
