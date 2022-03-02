@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Tree from './Tree';
 
 const StyledFileExplorer = styled.div`
-  // width: 800px;
+  width: 800px;
   max-width: 100%;
-//   margin: 0 auto;
+  margin: 0 auto;
   display: flex;  
 `;
 
@@ -14,7 +14,7 @@ const TreeWrapper = styled.div`
 `;
 
 function FileExplorer() {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState([]);
     const onSelect = (file) => {
         setSelectedFile({selectedFile: file})
     };

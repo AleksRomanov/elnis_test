@@ -1,14 +1,14 @@
 import React from 'react';
 import {FaFile, FaFolder, FaFolderOpen, FaChevronDown, FaChevronRight} from 'react-icons/fa';
 import styled from 'styled-components';
-import last from 'lodash/last';
-import PropTypes, {node} from 'prop-types';
+// import last from 'lodash/last';
+import PropTypes from 'prop-types';
 import {nanoid} from "nanoid";
-import values from "lodash/values";
+// import values from "lodash/values";
 
 const getPaddingLeft = (level, type) => {
     let paddingLeft = level * 20;
-    if (type === 'file') paddingLeft += 20;
+    if (type === "file") paddingLeft += 20;
     return paddingLeft;
 }
 
@@ -20,7 +20,7 @@ const StyledTreeNode = styled.div`
   padding-left: ${props => getPaddingLeft(props.level, props.type)}px;
   &:hover {
     background: lightgray;
-  }
+  } 
 `;
 
 const NodeIcon = styled.div`
@@ -29,29 +29,29 @@ const NodeIcon = styled.div`
 `;
 
 
-// data.forEach(doc => temp['title' in doc ? 'main' : 'content'].push(doc));
-// const getNodeLabel = (node) => last(node.path.split('/'));
-// const [getNodeLabel] = [node].find(node => [node].name === '/home');
+// data.forEach(doc => temp["title" in doc ? "main" : "content"].push(doc));
+// const getNodeLabel = (node) => last(node.path.split("/"));
+// const [getNodeLabel] = [node].find(node => [node].name === "/home");
 
-const getNodeLabel = (node) => node.name;
+// const getNodeLabel = (node) => node.name;
 // console.log(getNodeLabel);
 
 const TreeNode = (props) => {
     // const {node, onToggle, onNodeSelect} = props;
-    const {node, getChildNodes, onToggle, onNodeSelect} = props;
+    const {node, getChildNodes, onToggle, onNodeSelect, level} = props;
 
     return (
         <React.Fragment key={nanoid()}>
-            <StyledTreeNode type={node.type}>
-                <NodeIcon onClick={() => onToggle(node)}>
+            <StyledTreeNode level={level} type={node.type}>
+                <NodeIcon onClick={() => onToggle({node})}>
                     {node.type === "directory" && (node.isOpen ? <FaChevronDown/> : <FaChevronRight/>)}
                 </NodeIcon>
                 <NodeIcon marginRight={10}>
-                    {node.type === 'file' && <FaFile/>}
-                    {node.type === 'directory' && node.isOpen === true && <FaFolderOpen/>}
-                    {node.type === 'directory' && !node.isOpen && <FaFolder/>}
+                    {node.type === "file" && <FaFile/>}
+                    {node.type === "directory" && node.isOpen === true && <FaFolderOpen/>}
+                    {node.type === "directory" && !node.isOpen && <FaFolder/>}
                 </NodeIcon>
-                <span role="button" onClick={() => onNodeSelect(node)}>
+                <span role="button" onClick={() => onNodeSelect(node.name)}>
                     {/*{getNodeLabel(node)}*/}
                     {node.name}
                 </span>
@@ -61,7 +61,7 @@ const TreeNode = (props) => {
                 <TreeNode
                 {...props}
                     node={childNode}
-                    // level={level + 1}
+                    level={level + 1}
                     key={nanoid()}
                 />
             ))}
@@ -78,8 +78,8 @@ TreeNode.propTypes = {
     onNodeSelect: PropTypes.func.isRequired,
 };
 
-// TreeNode.defaultProps = {
-//     level: 0,
-// };
+TreeNode.defaultProps = {
+    level: 0,
+};
 
 export default TreeNode;

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import values from 'lodash/values';
-import PropTypes, {any} from 'prop-types';
+import PropTypes from 'prop-types';
 import TreeNode from './TreeNode';
 import {nanoid} from "nanoid";
 // import JsonData from '.././example.json';
@@ -103,7 +103,7 @@ import {useGettedJsonDataQuery} from '../store/api-reducer';
 // const data = JsonData[0].contents[0];
 
 function Tree({onSelect}) {
-    const {data: gettedJsonData, isSuccess: isSuccessGettedJsonData} = useGettedJsonDataQuery();
+    const {data: gettedJsonData, isSuccess: isSuccessGettedJsonData} = useGettedJsonDataQuery(null);
     const [jsonData, setJsonData] = useState([{}]);
 
     useEffect(() => {
@@ -147,7 +147,7 @@ function Tree({onSelect}) {
     // }
 
     const onToggle = (node) => {
-        jsonData[node.name].isOpen = !node.isOpen;
+        jsonData[node].isOpen = !node.isOpen;
         // setNodes(nodes);
         setJsonData(jsonData);
     }
@@ -175,6 +175,6 @@ function Tree({onSelect}) {
 
 export default Tree;
 
-// Tree.propTypes = {
-//     onSelect: PropTypes.func,
-// };
+Tree.propTypes = {
+    onSelect: PropTypes.func,
+};
