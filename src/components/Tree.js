@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import values from 'lodash/values';
-import PropTypes from 'prop-types';
+import PropTypes, {object} from 'prop-types';
 import TreeNode from './TreeNode';
 import {nanoid} from "nanoid";
 // import JsonData from '.././example.json';
 // import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query';
 // import { useFetchJsonDataQuery } from '../store/api-reducer';
 // import {apiReducer} from './../store/api-reducer';
-import {useGettedJsonDataQuery} from '../store/api-reducer';
+import {useGottenJsonDataQuery} from '../store/api-reducer';
+import {type} from "os";
+import {value} from "lodash/seq";
 
 // const data = {
 //     '/root': {
@@ -87,88 +89,83 @@ import {useGettedJsonDataQuery} from '../store/api-reducer';
 //     },
 // };
 
-// const data = Object.assign({}, JsonData[0]);
-// console.log(data);
-
-
-// const data = {};
-// const dataCopy = Object.assign({}, data)
-// console.log(data);
-// console.log(dataCopy);
-
-// const data = [JsonData[0].contents[0]];
-// const data = useFetchJsonDataQuery();
-
-// const data = JsonData[0].contents[0];
-// const data = JsonData[0].contents[0];
-
 function Tree({onSelect}) {
-    const {data: gettedJsonData, isSuccess: isSuccessGettedJsonData} = useGettedJsonDataQuery(null);
+    const {data: gottenJsonData, isSuccess: isSuccessGettedJsonData} = useGottenJsonDataQuery(undefined);
     const [jsonData, setJsonData] = useState([{}]);
 
     useEffect(() => {
-        if (isSuccessGettedJsonData && gettedJsonData) {
-            setJsonData(gettedJsonData)
+        if (isSuccessGettedJsonData && gottenJsonData) {
+
+
+
+
+            setJsonData(gottenJsonData)
         }
-    }, [gettedJsonData, isSuccessGettedJsonData]);
+    }, [gottenJsonData, isSuccessGettedJsonData]);
 
     if (!isSuccessGettedJsonData) {
         return (
             <p>Loading ...</p>
         );
     }
-    // getRootNodes = () => {
-    //     const { nodes } = this.state;
-    //     return values(nodes).filter(node => node.isRoot === true);
+
+    // const findDirectory = () => jsonData.find(({type}) => type === "directory");
+    // console.log(findDirectory);
+
+    // function getKeyByValue(jsonData, value) {
+    //     return Object.keys(jsonData).find(key => object[key] === value);
     // }
 
-    const node = (jsonData) => {
-        return values(jsonData[node]).filter(name => name.isRoot === true);
-    };
-    // console.log(node);
 
-    // console.log(jsonData[0]);
-    // console.log(getChildNodes);
+    // let jsonData = [];         //jsonData
+    // for (const i in jsonData) {
+    //     const v = jsonData[i]
+    //     jsonData.push(v + Number(i))
+    // }
+    //
+    // return jsonData;
 
-    const getChildNodes = (node) => {
-        if (!node.contents) {
-            return jsonData[0];
+    // let jsonData = [];         //jsonData
+    // for (const [i, v] of arr.entries()) {
+    //     jsonData.push(v + i)
+    // }
+    // return jsonData;
+
+    // const node = (jsonData) => {
+    //     return jsonData[node].filter(name => name.isRoot === true);
+    // };
+
+    const getChildNodes = (jsonData) => {
+        if (!jsonData.children) {
+            return jsonData.children.map(name => jsonData[name]);
         }
     }
-    // console.log("1111111");
-    // console.log(getChildNodes());
-
-    // const getChildNodes = (node) => {
-    //     if (!node.contents) {
-    //         return [];
-    //     } else {
-    //         return node.contents.map(name => jsonData[name]);
-    //     }
+    // onToggle = (node) => {
+    //     const { nodes } = this.state;
+    //     nodes[node.path].isOpen = !node.isOpen;
+    //     this.setState({ nodes });
     // }
-
     const onToggle = (node) => {
-        jsonData[node].isOpen = !node.isOpen;
-        // setNodes(nodes);
-        setJsonData(jsonData);
+        console.log(node);
+        console.log(jsonData);
+
+
+        // nodes[node.path].isOpen = !node.isOpen;
     }
+
     const onNodeSelect = (jsonData) => {
         onSelect(jsonData);
     }
 
-    // console.log(gettedJsonData);
-    // const [nodes, setNodes] = useState(getJsonData);
-    // const getRootNodes = () => {
-    //     return values(jsonData).filter(node => node.isRoot === true);
-    // };
-    // const rootNodes = getRootNodes();
-
     return (
         <TreeNode
             node={jsonData[0]}
+            // node2={jsonData[1]}
             getChildNodes={getChildNodes}
             onToggle={onToggle}
             onNodeSelect={onNodeSelect}
             key={nanoid()}
+            // level={level}
         />
     )
 }

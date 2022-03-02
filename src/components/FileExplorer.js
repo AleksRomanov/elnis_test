@@ -14,7 +14,7 @@ const TreeWrapper = styled.div`
 `;
 
 function FileExplorer() {
-    const [selectedFile, setSelectedFile] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
     const onSelect = (file) => {
         setSelectedFile({selectedFile: file})
     };

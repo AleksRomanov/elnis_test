@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // import last from 'lodash/last';
 import PropTypes from 'prop-types';
 import {nanoid} from "nanoid";
+import {type} from "os";
 // import values from "lodash/values";
 
 const getPaddingLeft = (level, type) => {
@@ -28,13 +29,7 @@ const NodeIcon = styled.div`
   margin-right: ${props => props.marginRight ? props.marginRight : 5}px;
 `;
 
-
-// data.forEach(doc => temp["title" in doc ? "main" : "content"].push(doc));
 // const getNodeLabel = (node) => last(node.path.split("/"));
-// const [getNodeLabel] = [node].find(node => [node].name === "/home");
-
-// const getNodeLabel = (node) => node.name;
-// console.log(getNodeLabel);
 
 const TreeNode = (props) => {
     // const {node, onToggle, onNodeSelect} = props;
@@ -43,14 +38,14 @@ const TreeNode = (props) => {
     return (
         <React.Fragment key={nanoid()}>
             <StyledTreeNode level={level} type={node.type}>
-                <NodeIcon onClick={() => onToggle({node})}>
+                <NodeIcon type="button" onClick={() => onToggle(node)}>
                     {node.type === "directory" && (node.isOpen ? <FaChevronDown/> : <FaChevronRight/>)}
                 </NodeIcon>
-                <NodeIcon marginRight={10}>
-                    {node.type === "file" && <FaFile/>}
-                    {node.type === "directory" && node.isOpen === true && <FaFolderOpen/>}
-                    {node.type === "directory" && !node.isOpen && <FaFolder/>}
-                </NodeIcon>
+                {/*<NodeIcon marginRight={10}>*/}
+                {/*    {node.type === "file" && <FaFile/>}*/}
+                {/*    {node.type === "directory" && node.isOpen === true && <FaFolderOpen/>}*/}
+                {/*    {node.type === "directory" && !node.isOpen && <FaFolder/>}*/}
+                {/*</NodeIcon>*/}
                 <span role="button" onClick={() => onNodeSelect(node.name)}>
                     {/*{getNodeLabel(node)}*/}
                     {node.name}
@@ -72,6 +67,7 @@ const TreeNode = (props) => {
 TreeNode.propTypes = {
     // node: PropTypes.func.isRequired,
     node: PropTypes.object.isRequired,
+    // node2: PropTypes.object.isRequired,
     getChildNodes: PropTypes.func.isRequired,
     level: PropTypes.number.isRequired,
     onToggle: PropTypes.func.isRequired,
